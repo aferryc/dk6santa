@@ -15,8 +15,7 @@ config :dk6santa, Dk6santaWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "KRmF3+RD3wyau0ghIva1LsSBaYCXUXVPkpHot3d5cbyoyPXxovK7/BjW3+XRba3Q",
   render_errors: [view: Dk6santaWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Dk6santa.PubSub,
-  live_view: [signing_salt: "KsKLiiyz"]
+  pubsub_server: Dk6santa.PubSub
 
 # Configures Elixir's Logger
 config :logger, :console,

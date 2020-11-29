@@ -7,16 +7,9 @@ defmodule Dk6santa.Application do
 
   def start(_type, _args) do
     children = [
-      # Start the Ecto repository
-      Dk6santa.Repo,
-      # Start the Telemetry supervisor
       Dk6santaWeb.Telemetry,
-      # Start the PubSub system
       {Phoenix.PubSub, name: Dk6santa.PubSub},
-      # Start the Endpoint (http/https)
       Dk6santaWeb.Endpoint
-      # Start a worker by calling: Dk6santa.Worker.start_link(arg)
-      # {Dk6santa.Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
