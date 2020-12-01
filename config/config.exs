@@ -7,16 +7,19 @@
 # General application configuration
 use Mix.Config
 
+config :dk6santa, Dk6santa.Repo, url: System.get_env("DATABASE_URL")
+
 config :dk6santa,
-  ecto_repos: [Dk6santa.Repo]
+  ecto_repos: [Dk6santa.Repo],
+  basic_user: System.get_env("BASIC_USER"),
+  basic_pass: System.get_env("BASIC_PASS")
 
 # Configures the endpoint
 config :dk6santa, Dk6santaWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "KRmF3+RD3wyau0ghIva1LsSBaYCXUXVPkpHot3d5cbyoyPXxovK7/BjW3+XRba3Q",
   render_errors: [view: Dk6santaWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Dk6santa.PubSub,
-  live_view: [signing_salt: "KsKLiiyz"]
+  pubsub_server: Dk6santa.PubSub
 
 # Configures Elixir's Logger
 config :logger, :console,
