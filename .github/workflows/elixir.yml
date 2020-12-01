@@ -40,7 +40,11 @@ jobs:
         mix ecto.migrate
         mix test
       env:
-        DATABASE_URI: postgres://postgres:postgres@postgres:${{ job.services.postgres.ports[5432] }}/postgres
+        DB_HOST: postgres
+        DB_NAME: postgres
+        DB_USER: postgres
+        DB_PASS: postgres
+        DB_PORT: ${{ job.services.postgres.ports[5432] }}
         BASIC_USER: test
         BASIC_PASS: test
         MIX_ENV: test

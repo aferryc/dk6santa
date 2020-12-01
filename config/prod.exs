@@ -13,6 +13,9 @@ config :dk6santa, Dk6santaWeb.Endpoint,
   url: [host: "example.com", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
+
+config :dk6santa, Dk6santa.Repo, url: System.get_env("DATABASE_URL")
+
 # Do not print debug messages in production
 config :logger, level: :info
 

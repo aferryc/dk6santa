@@ -9,3 +9,12 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :dk6santa, Dk6santa.Repo,
+  database: System.get_env("DB_NAME"),
+  hostname: System.get_env("DB_HOST"),
+  port: System.get_env("DB_PORT"),
+  username: System.get_env("DB_USER"),
+  password: System.get_env("DB_PASS"),
+  pool: 10
+
