@@ -15,8 +15,6 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_USER: postgres
           POSTGRES_DB: postgres
-        ports:
-          - 5432:5432
         options: >-
            --health-cmd pg_isready
            --health-interval 10s
@@ -42,6 +40,6 @@ jobs:
         mix ecto.migrate
         mix test
       env:
-        DATABASE_URI: postgres://postgres:postgres@postgres/postgres
+        DATABASE_URI: postgres://postgres:postgres@postgres:${{ job.services.postgres.ports[5432] }}/postgres
         BASIC_USER: test
         BASIC_PASS: test
