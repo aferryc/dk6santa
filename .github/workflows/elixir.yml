@@ -43,3 +43,4 @@ jobs:
         DATABASE_URI: postgres://postgres:postgres@postgres:${{ job.services.postgres.ports[5432] }}/postgres
         BASIC_USER: test
         BASIC_PASS: test
+        MIX_ENV: test

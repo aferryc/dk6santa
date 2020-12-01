@@ -12,7 +12,8 @@ config :dk6santa, Dk6santa.Repo, url: System.get_env("DATABASE_URL")
 config :dk6santa,
   ecto_repos: [Dk6santa.Repo],
   basic_user: System.get_env("BASIC_USER"),
-  basic_pass: System.get_env("BASIC_PASS")
+  basic_pass: System.get_env("BASIC_PASS"),
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
 # Configures the endpoint
 config :dk6santa, Dk6santaWeb.Endpoint,
