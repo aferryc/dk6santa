@@ -1,15 +1,24 @@
 defmodule Dk6santaWeb.Router do
   use Dk6santaWeb, :router
   use Plug.ErrorHandler
+  import Plug.BasicAuth
 
-  pipeline :verify_sender do
+  pipeline :authorize do
     plug :accepts, ["json"]
+
+    plug :basic_auth,
+      username: Application.get_env(:dk6santa, :basic_user),
+      password: Application.get_env(:dk6santa, :basic_pass)
   end
 
   scope "/", Dk6santaWeb do
-    pipe_through :verify_sender
+    pipe_through :authorize
 
     post("/letter", LetterController, :create)
-    post("/shuffle", ShuffleController, :start_shuffle)
+  end
+
+  def handle_errors(conn, error) do
+    conn
+    |> send_resp(404, "Not Found")
   end
 end

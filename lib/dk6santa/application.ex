@@ -8,6 +8,7 @@ defmodule Dk6santa.Application do
   def start(_type, _args) do
     children = [
       Dk6santaWeb.Telemetry,
+      {Dk6santa.Repo, []},
       {Phoenix.PubSub, name: Dk6santa.PubSub},
       Dk6santaWeb.Endpoint
     ]

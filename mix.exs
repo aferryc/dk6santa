@@ -19,7 +19,7 @@ defmodule Dk6santa.MixProject do
   def application do
     [
       mod: {Dk6santa.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :phoenix_ecto]
     ]
   end
 
@@ -33,6 +33,9 @@ defmodule Dk6santa.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.5.6"},
+      {:phoenix_ecto, "~> 4.0"},
+      {:postgrex, "0.15.0"},
+      {:ecto_sql, "~> 3.5"},
       {:phoenix_html, "~> 2.11"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
