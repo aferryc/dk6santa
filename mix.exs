@@ -37,8 +37,6 @@ defmodule Dk6santa.MixProject do
       {:postgrex, "0.15.0"},
       {:ecto_sql, "~> 3.5"},
       {:phoenix_html, "~> 2.11"},
-      {:telemetry_metrics, "~> 0.4"},
-      {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
