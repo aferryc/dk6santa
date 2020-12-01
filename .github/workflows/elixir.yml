@@ -9,14 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     container: elixir:1.10.4-slim
     services:
-      image: postgres
-      env: 
-        POSTGRES_PASSWORD: postgres
-      options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+           --health-cmd pg_isready
+           --health-interval 10s
+           --health-timeout 5s
+           --health-retries 5
 
     steps:
     - uses: actions/checkout@v2
@@ -30,8 +31,7 @@ jobs:
       run: mix deps.get
     - name: Run tests
       run: mix test
-      env: 
+      env:
         DATABASE_URI: postgres://postgres:postgres@postgres/postgres
         BASIC_USER: test
         BASIC_PASS: test
-      
