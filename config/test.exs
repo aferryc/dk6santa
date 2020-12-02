@@ -16,7 +16,7 @@ config :dk6santa, Dk6santaWeb.Endpoint,
 config :dk6santa, Dk6santa.Repo,
   database: System.get_env("DB_NAME"),
   hostname: System.get_env("DB_HOST"),
-  port: System.get_env("DB_PORT"),
+  port: (System.get_env("DB_PORT") || "5432") |> String.to_integer(),
   username: System.get_env("DB_USER"),
   password: System.get_env("DB_PASS"),
   pool: Ecto.Adapters.SQL.Sandbox

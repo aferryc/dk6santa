@@ -7,13 +7,18 @@
 # General application configuration
 use Mix.Config
 
-config :dk6santa, Dk6santa.Repo, url: System.get_env("DATABASE_URL")
+
+config :dk6santa, Dk6santa.Repo,
+  database: System.get_env("DB_NAME"),
+  hostname: System.get_env("DB_HOST"),
+  port: (System.get_env("DB_PORT") || "5432") |> String.to_integer,
+  username: System.get_env("DB_USER"),
+  password: System.get_env("DB_PASS")
 
 config :dk6santa,
   ecto_repos: [Dk6santa.Repo],
   basic_user: System.get_env("BASIC_USER"),
-  basic_pass: System.get_env("BASIC_PASS"),
-  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+  basic_pass: System.get_env("BASIC_PASS")
 
 # Configures the endpoint
 config :dk6santa, Dk6santaWeb.Endpoint,
