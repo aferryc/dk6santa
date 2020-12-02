@@ -5,14 +5,20 @@ defmodule Dk6santaWeb.LetterController do
   def create(
         conn,
         %{
-          "envelope" => %{"from" => email},
           "headers" => %{"from" => header_email, "subject" => subject},
           "plain" => plain,
           "html" => html
         } = params
       ) do
     Logger.info("Received #{inspect(params)}")
-    [name | _rest] = header_email |> String.split("<")
+    [email | name] = header_email |> String.split() |> Enum.reverse()
+    email = email |> String.replace_leading("<", "") |> String.replace_trailing(">", "")
+    name =
+      if name |> is_nil() do
+        email
+      else
+        name |> Enum.reverse |> Enum.join(" ")
+      end
 
     with {:ok, contact} <- %{email: email, name: name} |> Dk6santa.Mail.create_contact(),
          {:ok, _} <-

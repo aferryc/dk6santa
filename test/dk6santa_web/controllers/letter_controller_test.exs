@@ -15,7 +15,7 @@ defmodule Dk6santaWeb.LetterControllerTest do
             from: "sit@dolor.amet"
           },
           headers: %{
-            from: "Sender Name<sit@dolor.amet>",
+            from: "Sender Name <sit@dolor.amet>",
             subject: "A subject"
           },
           plain: "An email",
@@ -23,6 +23,17 @@ defmodule Dk6santaWeb.LetterControllerTest do
         )
 
       assert response(conn, 201)
+  %{
+    email: "sit@dolor.amet",
+    name: "Sender Name",
+    id: id
+  } = Dk6santa.Mail.get_contact_by_email("sit@dolor.amet")
+ [%{
+    contact_id: ^id,
+    html: "<html><body>An email</body></html>",
+    plain: "An email",
+    subject: "A subject",
+  }] = Dk6santa.Mail.get_all_letter(id)
     end
 
     test "should always return 404 when request is incomplete", %{conn: conn} do
@@ -34,10 +45,6 @@ defmodule Dk6santaWeb.LetterControllerTest do
         )
         |> post(
           "/letter",
-          headers: %{
-            from: "Sender Name<sit@dolor.amet>",
-            subject: "A subject"
-          },
           plain: "An email",
           html: "<html><body>An email</body></html>"
         )
