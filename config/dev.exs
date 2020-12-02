@@ -13,7 +13,6 @@ config :phoenix, :plug_init_mode, :runtime
 config :dk6santa, Dk6santa.Repo,
   database: System.get_env("DB_NAME"),
   hostname: System.get_env("DB_HOST"),
-  port: (System.get_env("DB_PORT") || "5432") |> String.to_integer,
+  port: (System.get_env("DB_PORT") || "5432") |> String.to_integer(),
   username: System.get_env("DB_USER"),
   password: System.get_env("DB_PASS")
-

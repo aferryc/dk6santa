@@ -19,7 +19,7 @@ defmodule Dk6santa.MixProject do
   def application do
     [
       mod: {Dk6santa.Application, []},
-      extra_applications: [:logger, :phoenix_ecto]
+      extra_applications: [:logger, :phoenix_ecto, :swoosh, :gen_smtp]
     ]
   end
 
@@ -40,7 +40,9 @@ defmodule Dk6santa.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:pop3mail, "~> 1.3"}
+      {:swoosh, "~> 1.1"},
+      {:gen_smtp, "~> 0.13"},
+      {:hackney, "~> 1.9"}
     ]
   end
 end

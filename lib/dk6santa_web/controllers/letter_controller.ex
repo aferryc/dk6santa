@@ -19,7 +19,6 @@ defmodule Dk6santaWeb.LetterController do
       conn |> send_resp(201, "Created")
     else
       {:error, reason} ->
-        IO.inspect(reason)
         conn |> send_resp(400, "Cannot be processed")
     end
   end

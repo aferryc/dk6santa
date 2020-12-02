@@ -44,11 +44,14 @@ defmodule Dk6santa.MailTest do
     alias Dk6santa.Mail.Letter
 
     @valid_attrs %{html: "some html", plain: "some plain", subject: "some subject"}
-    @invalid_attrs %{html: nil, plain: nil, subject: nil}
+    @invalid_attrs %{html: nil, plain: nil, subject: nil, contact_id: nil}
 
     def letter_fixture(attrs \\ %{}) do
+      {:ok, contact} = Mail.create_contact(%{email: "some email", name: "some name"})
+
       {:ok, letter} =
         attrs
+        |> Map.put(:contact_id, contact.id)
         |> Enum.into(@valid_attrs)
         |> Mail.add_letter()
 
@@ -66,7 +69,9 @@ defmodule Dk6santa.MailTest do
     end
 
     test "add_letter/1 with valid data creates a letter" do
-      assert {:ok, %Letter{} = letter} = Mail.add_letter(@valid_attrs)
+      {:ok, contact} = Mail.create_contact(%{email: "some email", name: "some name"})
+      attrs = @valid_attrs |> Enum.into(%{contact_id: contact.id})
+      assert {:ok, %Letter{} = letter} = Mail.add_letter(attrs)
       assert letter.html == "some html"
       assert letter.plain == "some plain"
       assert letter.subject == "some subject"
