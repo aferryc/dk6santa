@@ -28,4 +28,4 @@ config :dk6santa, Dk6santa.Repo,
   pool: Ecto.Adapters.SQL.Sandbox
 
 # Print only warnings and errors during test
-config :logger, level: :warn
+config :logger, level: :error

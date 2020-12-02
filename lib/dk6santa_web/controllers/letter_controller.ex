@@ -1,5 +1,6 @@
 defmodule Dk6santaWeb.LetterController do
   use Dk6santaWeb, :controller
+  require Logger
 
   def create(
         conn,
@@ -10,7 +11,7 @@ defmodule Dk6santaWeb.LetterController do
           "html" => html
         } = params
       ) do
-    Logger.info("Received #{inspect(params)}"
+    Logger.info("Received #{inspect(params)}")
     [name | _rest] = header_email |> String.split("<")
 
     with {:ok, contact} <- %{email: email, name: name} |> Dk6santa.Mail.create_contact(),
@@ -25,7 +26,7 @@ defmodule Dk6santaWeb.LetterController do
   end
 
   def create(conn, params) do
-    Logger.error("Received #{inspect(params)}")
+    Logger.warn("Received #{inspect(params)}")
     conn |> send_resp(404, "Not Found")
   end
 end
