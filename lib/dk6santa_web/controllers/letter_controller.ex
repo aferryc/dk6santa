@@ -24,7 +24,7 @@ defmodule Dk6santaWeb.LetterController do
     end
   end
 
-  def create(conn, param) do
+  def create(conn, params) do
     Logger.error("Received #{inspect(params)}")
     conn |> send_resp(404, "Not Found")
   end
