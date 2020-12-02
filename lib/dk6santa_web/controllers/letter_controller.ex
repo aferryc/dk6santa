@@ -8,8 +8,9 @@ defmodule Dk6santaWeb.LetterController do
           "headers" => %{"from" => header_email, "subject" => subject},
           "plain" => plain,
           "html" => html
-        } = _params
+        } = params
       ) do
+    Logger.info("Received #{inspect(params)}"
     [name | _rest] = header_email |> String.split("<")
 
     with {:ok, contact} <- %{email: email, name: name} |> Dk6santa.Mail.create_contact(),
@@ -23,5 +24,8 @@ defmodule Dk6santaWeb.LetterController do
     end
   end
 
-  def create(conn, _), do: conn |> send_resp(404, "Not Found")
+  def create(conn, param) do
+    Logger.error("Received #{inspect(params)}")
+    conn |> send_resp(404, "Not Found")
+  end
 end
