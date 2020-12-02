@@ -13,6 +13,12 @@ config :dk6santa, Dk6santaWeb.Endpoint,
   http: [port: 4002],
   server: false
 
+config :dk6santa,
+  ecto_repos: [Dk6santa.Repo],
+  basic_user: "test",
+  basic_pass: "test",
+  service_email: "test@test.com"
+
 config :dk6santa, Dk6santa.Repo,
   database: System.get_env("DB_NAME"),
   hostname: System.get_env("DB_HOST"),

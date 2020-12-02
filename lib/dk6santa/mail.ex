@@ -1,5 +1,6 @@
 defmodule Dk6santa.Mail do
   import Ecto.Query, warn: false
+
   alias Dk6santa.Repo
 
   alias Dk6santa.Mail.Contact
@@ -22,6 +23,11 @@ defmodule Dk6santa.Mail do
 
   def list_letters do
     Repo.all(Letter)
+  end
+
+  def get_all_letter(contact_id) do
+    query = from(l in Letter, where: l.contact_id == ^contact_id)
+    Repo.all(query)
   end
 
   def get_letter!(id), do: Repo.get!(Letter, id)

@@ -14,7 +14,7 @@ defmodule Dk6santa.Mail.Letter do
   @doc false
   def changeset(letter, attrs) do
     letter
-    |> cast(attrs, [:html, :plain, :subject])
-    |> validate_required([:html, :plain, :subject])
+    |> cast(attrs, [:html, :plain, :subject, :contact_id])
+    |> validate_required([:html, :plain, :subject, :contact_id])
   end
 end
