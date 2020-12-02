@@ -22,7 +22,7 @@ config :dk6santa,
 
 # Configures the endpoint
 config :dk6santa, Dk6santaWeb.Endpoint,
-  url: [host: "localhost"],
+  http: [port: 4000],
   secret_key_base: "KRmF3+RD3wyau0ghIva1LsSBaYCXUXVPkpHot3d5cbyoyPXxovK7/BjW3+XRba3Q",
   render_errors: [view: Dk6santaWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Dk6santa.PubSub
