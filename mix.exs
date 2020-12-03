@@ -42,7 +42,8 @@ defmodule Dk6santa.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:swoosh, "~> 1.1"},
       {:gen_smtp, "~> 0.13"},
-      {:hackney, "~> 1.9"}
+      {:hackney, "~> 1.9"},
+      {:mimic, "~> 1.3", only: :test}
     ]
   end
 end
