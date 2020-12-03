@@ -6,6 +6,7 @@ defmodule Dk6santa.Mail.Contact do
     field(:email, :string)
     field(:name, :string)
     field(:uuid, Ecto.UUID, autogenerate: true)
+    field(:santa_id, :integer)
 
     timestamps()
   end

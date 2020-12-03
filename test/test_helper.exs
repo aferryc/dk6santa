@@ -1,3 +1,5 @@
+Mimic.copy(Application)
+Mimic.copy(Dk6santa.Email)
 Mimic.copy(Ecto.Adapters.SQL)
 
 ExUnit.start()

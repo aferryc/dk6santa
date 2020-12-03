@@ -21,9 +21,17 @@ defmodule Dk6santaWeb.LetterController do
         name |> Enum.reverse() |> Enum.join(" ")
       end
 
+    to_santa = to_santa?(params["reply_plain"], plain)
+
     with {:ok, contact} <- %{email: email, name: name} |> Dk6santa.Mail.create_contact(),
          {:ok, _} <-
-           %{html: html, plain: plain, subject: subject, contact_id: contact.id}
+           %{
+             html: html,
+             plain: plain,
+             subject: subject,
+             contact_id: contact.id,
+             to_santa: to_santa
+           }
            |> Dk6santa.Mail.add_letter() do
       conn |> send_resp(201, "Created")
     else
@@ -37,4 +45,14 @@ defmodule Dk6santaWeb.LetterController do
     Logger.warn("Received #{inspect(params)}")
     conn |> send_resp(404, "Not Found")
   end
+
+  defp to_santa?(nil, plain) do
+    Regex.match?(~r/dear santa/i, plain)
+  end
+
+  defp to_santa?(reply_plain, _plain) when reply_plain |> is_binary() do
+    Regex.match?(~r/dear santa/i, reply_plain)
+  end
+
+  defp to_santa?(_, _), do: true
 end
