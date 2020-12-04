@@ -40,7 +40,7 @@ defmodule Dk6santaWeb.LetterControllerTest do
       ] = Dk6santa.Mail.get_all_letter(id)
     end
 
-    test "should always return 404 when request is incomplete", %{conn: conn} do
+    test "should always return 201 when request is incomplete", %{conn: conn} do
       conn =
         conn
         |> put_req_header(
@@ -53,7 +53,7 @@ defmodule Dk6santaWeb.LetterControllerTest do
           html: "<html><body>An email</body></html>"
         )
 
-      assert response(conn, 404)
+      assert response(conn, 201)
     end
   end
 end
