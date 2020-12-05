@@ -37,13 +37,13 @@ defmodule Dk6santaWeb.LetterController do
     else
       {:error, reason} ->
         Logger.error("Error found #{inspect(reason)}")
-        conn |> send_resp(400, "Cannot be processed")
+        conn |> send_resp(201, "Cannot be processed")
     end
   end
 
   def create(conn, params) do
     Logger.warn("Received #{inspect(params)}")
-    conn |> send_resp(404, "Not Found")
+    conn |> send_resp(201, "Not Found")
   end
 
   defp to_santa?(nil, plain) do
