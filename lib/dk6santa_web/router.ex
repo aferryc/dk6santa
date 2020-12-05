@@ -3,12 +3,14 @@ defmodule Dk6santaWeb.Router do
   use Plug.ErrorHandler
   import Plug.BasicAuth
 
+  alias Dk6santa.Helper
+
   pipeline :authorize do
     plug :accepts, ["json"]
 
     plug :basic_auth,
-      username: Application.get_env(:dk6santa, :basic_user),
-      password: Application.get_env(:dk6santa, :basic_pass)
+      username: Helper.env(:basic_user),
+      password: Helper.env(:basic_pass)
   end
 
   scope "/", Dk6santaWeb do
