@@ -6,8 +6,7 @@ defmodule Dk6santaWeb.LetterController do
         conn,
         %{
           "headers" => %{"from" => header_email, "subject" => subject},
-          "plain" => plain,
-          "html" => html
+          "plain" => plain
         } = params
       ) do
     Logger.info("Received #{inspect(params)}")
@@ -19,6 +18,14 @@ defmodule Dk6santaWeb.LetterController do
         email
       else
         name |> Enum.reverse() |> Enum.join(" ")
+      end
+
+    html =
+      Map.get(params, "html")
+      |> case do
+        nil -> plain
+        "" -> plain
+        html -> html
       end
 
     plain = params["reply_plain"] || plain

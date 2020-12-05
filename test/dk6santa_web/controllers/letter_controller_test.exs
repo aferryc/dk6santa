@@ -213,5 +213,35 @@ defmodule Dk6santaWeb.LetterControllerTest do
 
       assert response(conn, 201)
     end
+
+    test "should be ok if html was nil", %{conn: conn} do
+      Dk6santa.Mail
+      |> expect(:create_contact, fn _attrs ->
+        result = %Dk6santa.Mail.Contact{} |> Map.put(:id, 3412)
+
+        {:ok, result}
+      end)
+      |> expect(:add_letter, fn attrs ->
+        assert attrs.html == "An email"
+        {:ok, %{}}
+      end)
+
+      conn =
+        conn
+        |> put_req_header(
+          "authorization",
+          TestHelper.basic_auth_token()
+        )
+        |> post(
+          "/letter",
+          headers: %{
+            from: "Lorem <sit@dolor.amet>",
+            subject: "A subject"
+          },
+          plain: "An email"
+        )
+
+      assert response(conn, 201)
+    end
   end
 end
