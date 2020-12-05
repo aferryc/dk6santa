@@ -18,7 +18,8 @@ config :dk6santa,
   ecto_repos: [Dk6santa.Repo],
   basic_user: System.get_env("BASIC_USER"),
   basic_pass: System.get_env("BASIC_PASS"),
-  service_email: System.get_env("SERVICE_EMAIL")
+  service_email: System.get_env("SERVICE_EMAIL"),
+  can_send_email: System.get_env("CAN_SEND_EMAIL") == "true"
 
 # Configures the endpoint
 config :dk6santa, Dk6santaWeb.Endpoint,

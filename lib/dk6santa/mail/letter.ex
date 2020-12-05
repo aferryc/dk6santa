@@ -7,6 +7,7 @@ defmodule Dk6santa.Mail.Letter do
     field(:plain, :string)
     field(:subject, :string)
     field(:contact_id, :id)
+    field(:to_santa, :boolean)
 
     timestamps()
   end
@@ -14,7 +15,7 @@ defmodule Dk6santa.Mail.Letter do
   @doc false
   def changeset(letter, attrs) do
     letter
-    |> cast(attrs, [:html, :plain, :subject, :contact_id])
-    |> validate_required([:html, :plain, :subject, :contact_id])
+    |> cast(attrs, [:html, :plain, :subject, :contact_id, :to_santa])
+    |> validate_required([:html, :plain, :subject, :contact_id, :to_santa])
   end
 end
