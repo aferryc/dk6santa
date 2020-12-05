@@ -39,6 +39,17 @@ defmodule Dk6santa.Mail do
     |> Repo.update()
   end
 
+  def shuffle_santa() do
+    Contact
+    |> select([:id])
+    |> Repo.all()
+    |> Enum.map(fn contact -> contact.id end)
+    |> Dk6santa.Helper.zipped_derangement()
+    |> Enum.all?(fn {kid_id, santa_id} ->
+      {:ok, _} = Dk6santa.Mail.assign_santa(kid_id, santa_id)
+    end)
+  end
+
   alias Dk6santa.Mail.Letter
 
   def list_letters do

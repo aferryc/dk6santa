@@ -68,18 +68,34 @@ defmodule Dk6santa.MailTest do
       assert {:error, :invalid_attrs} = Mail.create_contact(@invalid_attrs)
     end
 
-    test "assign_santa/1 should success when santa_id different with user_id" do
+    test "assign_santa/2 should success when santa_id different with user_id" do
       contact = contact_fixture()
       santa_id = contact.id + 1
       assert {:ok, %{santa_id: ^santa_id}} = Mail.assign_santa(contact.id, santa_id)
     end
 
-    test "assign_santa/1 should error when santa_id is equal to user_id" do
+    test "assign_santa/2 should error when santa_id is equal to user_id" do
       contact = contact_fixture()
 
       assert {:error,
               %{errors: [wrong_santa_id: {"Santa ID cannot be the same as current user", []}]}} =
                Mail.assign_santa(contact.id, contact.id)
+    end
+
+    test "shuffle_santa/0 should assign every santa to contact" do
+      list_id =
+        for id <- 1..20 do
+          contact = contact_fixture(%{email: "email#{id}", name: "name#{id}"})
+          contact.id
+        end
+
+      assert Mail.shuffle_santa()
+
+      assert Mail.list_contacts()
+             |> Enum.all?(fn contact ->
+               contact.santa_id != nil and contact.santa_id in list_id and
+                 contact.santa_id != contact.id
+             end)
     end
   end
 
