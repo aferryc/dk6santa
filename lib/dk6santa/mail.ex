@@ -56,8 +56,13 @@ defmodule Dk6santa.Mail do
     Repo.all(Letter)
   end
 
-  def get_all_letter(contact_id) do
-    query = from(l in Letter, where: l.contact_id == ^contact_id)
+  def get_all_unsent_letter(contact_id) do
+    query =
+      from(l in Letter,
+        where: l.contact_id == ^contact_id and l.sent == false,
+        order_by: [asc: :inserted_at]
+      )
+
     Repo.all(query)
   end
 
@@ -78,5 +83,11 @@ defmodule Dk6santa.Mail do
       other ->
         other
     end
+  end
+
+  def mark_sent(id) do
+    Repo.get!(Letter, id)
+    |> Letter.changeset(%{sent: true})
+    |> Repo.update()
   end
 end
