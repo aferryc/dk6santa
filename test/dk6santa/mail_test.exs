@@ -89,13 +89,20 @@ defmodule Dk6santa.MailTest do
           contact.id
         end
 
+      with_santa =
+        contact_fixture(%{email: "have_santa", name: "have_santa", santa_id: 1_245_125})
+
       assert Mail.shuffle_santa()
 
-      assert Mail.list_contacts()
-             |> Enum.all?(fn contact ->
+      assert list_id
+             |> Enum.all?(fn contact_id ->
+               contact = Mail.get_contact!(contact_id)
+
                contact.santa_id != nil and contact.santa_id in list_id and
                  contact.santa_id != contact.id
              end)
+
+      assert %{santa_id: 1_245_125} = Mail.get_contact!(with_santa.id)
     end
   end
 
