@@ -42,6 +42,7 @@ defmodule Dk6santa.Mail do
   def shuffle_santa() do
     Contact
     |> select([:id])
+    |> where([c], is_nil(c.santa_id))
     |> Repo.all()
     |> Enum.map(fn contact -> contact.id end)
     |> Dk6santa.Helper.zipped_derangement()
