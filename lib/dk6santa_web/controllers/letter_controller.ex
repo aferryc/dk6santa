@@ -39,7 +39,8 @@ defmodule Dk6santaWeb.LetterController do
              plain: plain,
              subject: subject,
              contact_id: contact.id,
-             to_santa: to_santa
+             to_santa: to_santa,
+             sent: false
            }
            |> Dk6santa.Mail.add_letter() do
       conn |> send_resp(201, "Created")

@@ -106,7 +106,8 @@ defmodule Dk6santa.MailTest do
       html: "some html",
       plain: "some plain",
       subject: "some subject",
-      to_santa: false
+      to_santa: false,
+      sent: false
     }
     @invalid_attrs %{html: nil, plain: nil, subject: nil, contact_id: nil}
 
@@ -159,6 +160,20 @@ defmodule Dk6santa.MailTest do
     test "add_letter/1 with invalid data returns error changeset" do
       reject(&Dk6santa.Email.forward_directly/1)
       assert {:error, %Ecto.Changeset{}} = Mail.add_letter(@invalid_attrs)
+    end
+
+    test "mark_sent/1 should mark a letter to sent" do
+      letter = letter_fixture()
+      assert %{sent: false} = letter
+      Mail.mark_sent(letter.id)
+      assert %{sent: true} = Mail.get_letter!(letter.id)
+    end
+
+    test "get_all_unsent_letter/1 should only get unsent letter" do
+      letter = letter_fixture()
+      assert Mail.get_all_unsent_letter(letter.contact_id) == [letter]
+      Mail.mark_sent(letter.id)
+      assert Mail.get_all_unsent_letter(letter.contact_id) == []
     end
   end
 end
