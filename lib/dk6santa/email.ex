@@ -14,6 +14,9 @@ defmodule Dk6santa.Email do
           if letter.to_santa do
             generate_mail(kid, santa, letter)
             |> deliver(letter.id)
+
+            jitter = :rand.uniform(1_000)
+            :timer.sleep(1_000 + jitter)
           else
             :ok
           end
