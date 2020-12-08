@@ -7,7 +7,7 @@ defmodule Dk6santa.Email do
     Dk6santa.Mail.list_contacts()
     |> Enum.each(fn kid ->
       if kid.santa_id |> is_number() do
-        santa = Dk6santa.Mail.get_contact_by_santa(kid.santa_id)
+        santa = Dk6santa.Mail.get_contact!(kid.santa_id)
 
         Dk6santa.Mail.get_all_unsent_letter(kid.id)
         |> Enum.each(fn letter ->
